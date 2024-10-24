@@ -5,7 +5,7 @@ let playStatus= "not-started";
 
 let timer= null;    //setInterval Function
 //10, 5, 2
-let startTime= 10;  //default
+let startTime= 10;  //default time in minute
 let elapsedTime= startTime*60*1000;
 
 const rainVideo = document.querySelector("#rain-video");
@@ -14,6 +14,10 @@ const rainAudio =  document.querySelector("#rain-audio");
 const beachAudio =  document.querySelector("#beach-audio");
 const rainDiv = document.querySelector("#rain-div");
 const beachDiv = document.querySelector("#beach-div");
+const circularProgress = document.querySelector(".circular-progress");  // Circular progress element
+const circularProgressCircle = document.querySelector(".circular-progress circle.fg");
+
+circularProgressCircle.style.display= "none";
 
 rainVideo.play();
 beachVideo.play();
@@ -56,12 +60,12 @@ const mediumMins = document.querySelector("#medium-mins");
 const longMins = document.querySelector("#long-mins");
 const timeDisplay = document.querySelector(".time-display");
 const reset= document.querySelector(".reset");
-const play= document.querySelector(".play");
+const play= document.querySelector(".play span");
 
 smallerMins.addEventListener("click", () => {
     timeDisplay.innerHTML= "02:00";
     startTime= 2;
-    elapsedTime= startTime*60*1000 - elapsedTime;
+    elapsedTime= startTime*60*1000;
     playStatus= "not-started";
     reset.click();
 
@@ -72,7 +76,7 @@ smallerMins.addEventListener("click", () => {
 mediumMins.addEventListener("click", () => {
     timeDisplay.innerHTML= "05:00";
     startTime= 5;
-    elapsedTime= startTime*60*1000 - elapsedTime;
+    elapsedTime= startTime*60*1000;
     playStatus= "not-started";
     reset.click();
 
@@ -83,7 +87,7 @@ mediumMins.addEventListener("click", () => {
 longMins.addEventListener("click", () => {
     timeDisplay.innerHTML= "10:00";
     startTime= 10;
-    elapsedTime= startTime*60*1000 - elapsedTime;
+    elapsedTime= startTime*60*1000;
     playStatus= "not-started";
     reset.click();
 
@@ -92,6 +96,7 @@ longMins.addEventListener("click", () => {
 });
 
 play.addEventListener("click", () => {
+    circularProgressCircle.style.display= "block";
     if(playStatus==="not-started" || playStatus==="paused") {
         play.textContent = "❚ ❚";
         playStatus="playing";
@@ -119,6 +124,7 @@ reset.addEventListener("click", () => {
 
     clearInterval(timer);
     elapsedTime= startTime*60*1000;
+    circularProgress.style.setProperty('--progress', 0);
 
     if(startTime === 10) {
         timeDisplay.innerHTML= "10:00";
@@ -129,6 +135,8 @@ reset.addEventListener("click", () => {
     else if(startTime === 2) {
         timeDisplay.innerHTML= "02:00";
     }
+
+    circularProgressCircle.style.display= "none";
 
     rainVideo.play();
     beachVideo.play();
@@ -144,6 +152,10 @@ function update() {
     secs = secs.length<=1 ? "0"+secs: secs;
 
     timeDisplay.innerHTML= mins + ":" + secs;
+
+    // Calculate progress and update the circular progress bar
+    let progressPercentage = ((startTime * 60 * 1000 - elapsedTime) / (startTime * 60 * 1000)) * 100;
+    circularProgress.style.setProperty('--progress', progressPercentage);
 
     if(elapsedTime === 0 ) {
         clearInterval(timer);
