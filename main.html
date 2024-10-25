@@ -1,4 +1,4 @@
-
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,3 +60,44 @@
     <script src="index.js"></script>
 </body>
 </html>
+-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Meditation App</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+ 
+<body>
+	<div id="app" class="app">
+		<div class="vid-container">
+			<video class="meditation-video" src="video/beach.mp4" muted></video>
+		</div>
+		<div class="player-container">
+			<audio class="meditation-audio" src="sounds/beach.mp3"></audio>
+		</div>
+		<div class="controls">
+			<div class="sound-picker">
+				<button id="beach-btn"><img src="svg/beach.svg" alt="Beach"></button>
+				<button id="rain-btn"><img src="svg/rain.svg" alt="Rain"></button>
+			</div>
+			<div id="time-select" class="time-select">
+				<button id="smaller-mins" class="smaller-mins">2 Minutes</button>
+				<button id="medium-mins" class="medium-mins">5 Minutes</button>
+				<button id="long-mins" class="long-mins">10 Minutes</button>
+			</div>
+			<div class="time-display">10:0</div>
+			<button class="play">Play</button>
+		</div>
+	</div>
+	<script src="script.js"></script>
+</body>
+ 
+</html>
+
